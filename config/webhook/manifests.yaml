@@ -2,26 +2,25 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
-  creationTimestamp: null
-  name: deployment-validating-webhook-configuration
+  name: validating-webhook-configuration
 webhooks:
-  - admissionReviewVersions:
-      - v1
-    clientConfig:
-      service:
-        name: deployment-webhook-service
-        namespace: system
-        path: /validate-webapp-my-domain-v1-deployment
-    failurePolicy: Fail
-    name: vdeployment.kb.io
-    rules:
-      - apiGroups:
-          - webapp.my.domain
-        apiVersions:
-          - v1
-        operations:
-          - CREATE
-          - UPDATE
-        resources:
-          - deployments
-    sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-webapp-my-domain-v1-deployment
+  failurePolicy: Fail
+  name: vdeployment.kb.io
+  rules:
+  - apiGroups:
+    - webapp.my.domain
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - deployments
+  sideEffects: None
